@@ -18,5 +18,5 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "http://localhost"
-"Bug Tracker" = "http://localhost"
+"Homepage" = "https://github.com/jkjeldbjerg/timeline.git"
+"Bug Tracker" = "https://github.com/jkjeldbjerg/timeline/issues"
