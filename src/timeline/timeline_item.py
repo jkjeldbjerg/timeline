@@ -238,7 +238,7 @@ class TimelineItem(SimpleTimelineItem):
 
     @staticmethod
     def event(start: Union[date, datetime, str, None],
-              data: Any, tags: Union[str, list, None] = None):
+              data: Any, tags: Union[str, list, None] = None):  # -> TimelineItem
         """ Create an event (start and end are the same) """
         if not start:
             raise ValueError('event: Start cannot be None. It is an event, not endless'
@@ -256,13 +256,22 @@ class TimelineItem(SimpleTimelineItem):
         elif type(tags) is list or type(tags) is set:
             self.tags.update(tags)
 
-    def add_tag(self, tag: str):
+    def add_tag(self, tag: str):  # -> TimelineItem
         """ Adding a tag to set """
         self.tags.add(tag)
+        return self
 
-    def has_tag(self, tag: str):
+    def has_tag(self, tag: Union[str, list], one_of: bool = False) -> bool:
         """ Does the item have a specific tag """
-        return tag in self.tags
+        if isinstance(tag, str):
+            return tag in self.tags
+        result: bool = not one_of
+        for t in tag:
+            if one_of:
+                result |= t in self.tags
+            else:
+                result &= t in self.tags
+        return result
 
     def shares_tag(self, other) -> bool:  # other: TimelineItem
         """ Do two items share tag """
@@ -285,6 +294,6 @@ class TimelineItem(SimpleTimelineItem):
             self.data = [self.data, other.data]
         return self
 
-    # class TimelineItem
+    # :class TimelineItem
 
 # EOF

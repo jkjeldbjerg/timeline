@@ -2,7 +2,7 @@ import datetime
 import unittest
 
 from timeline.timeline import Timeline
-from timeline.timeline_item import SimpleTimelineItem
+from timeline.timeline_item import SimpleTimelineItem, TimelineItem
 
 
 class TestTimeline(unittest.TestCase):
@@ -71,6 +71,20 @@ class TestTimeline(unittest.TestCase):
         self.assertEqual(len(result), 1)
         self.assertIsInstance(result[0], TestTimelineItem)
         self.assertEqual(result[0].start, datetime.date.fromisoformat('2020-09-09'))
+
+    def test_tag_filter(self):
+        """ test the tag filtering mechanism """
+        timeline: Timeline = Timeline()
+        timeline.append(TimelineItem('2022-11-11', '2022-12-12', 'Yes', tags=['yes', 'more']))
+        timeline.append(TimelineItem('2020-09-09', '2020-10-10', 'No', tags=['no', 'something']))
+        result = [t for t in timeline.tag_filter('yes')]
+        self.assertEqual((len(result)), 1)
+        result = [t for t in timeline.tag_filter(['yes', 'something'], one_of=False)]
+        self.assertEqual((len(result)), 0)
+        result = [t for t in timeline.tag_filter(['yes', 'more'], one_of=False)]
+        self.assertEqual((len(result)), 1)
+        result = [t for t in timeline.tag_filter(['yes', 'something'], one_of=True)]
+        self.assertEqual((len(result)), 2)
 
 
 
