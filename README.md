@@ -1,4 +1,4 @@
-# Timeline #
+  # Timeline #
 
 Timeline consists of two main class types:
 
@@ -94,6 +94,12 @@ set the end = start.
 ## Testing ##
 
 Testing can be done with Python Unittest framework. All tests are located in [src/test](src/test). 
+
+## Version history
+
+0.1.1 - Minor fixes. Timeline.sort now returns self for chaining. Timeline now supports indices 
+for getting items in timeline. Unstable idea as the ordering may change with a `sort`!
+
 
 ## License ##
 

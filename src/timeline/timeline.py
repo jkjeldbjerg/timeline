@@ -21,6 +21,11 @@ class Timeline:
     def __init__(self):
         self._timeline: [SimpleTimelineItem] = list()
 
+    def __getattr__(self, item):
+        if not isinstance(item, int) or item < 0:
+            raise IndexError(f"{item} found, expected int > 0")
+        return self._timeline[item]
+
     def to_list(self) -> list:
         """ convert the timeline to a list """
         self._timeline.sort()
@@ -33,6 +38,7 @@ class Timeline:
     def sort(self, reverse: bool = False):
         """ sort the timeline """
         self._timeline.sort(reverse=reverse)
+        return self
 
     def filter(self, before: Union[None, date, datetime] = None, after: Union[None, date, datetime] = None):
         """ Filter timeline based on dates/datetimes """

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "timeline"
-version = "0.0.1"
+version = "0.1.1"
 authors = [
   { name="Johnny Kjeldbjerg", email="jk@tekstkonsulent.dk" },
 ]
